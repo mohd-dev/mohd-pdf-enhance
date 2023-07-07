@@ -66,10 +66,13 @@ def main():
                in settings.get('modules', [])]
     # Apply all the desired fixes
     for module in modules:
-        logging.debug(f'Executing {module.__name__} processing')
-        module.process(filename=destination_filename,
-                       destination=destination_filename,
-                       options=settings.get(module.__name__, {}))
+        logging.info(f'Executing {module.__name__}.process')
+        if module.process(filename=destination_filename,
+                          destination=destination_filename,
+                          options=settings.get(module.__name__, {})):
+            logging.debug(f'Filter {module.__name__}.process was executed')
+        else:
+            logging.debug(f'Filter {module.__name__}.process was not executed')
 
 
 if __name__ == '__main__':
