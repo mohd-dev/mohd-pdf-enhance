@@ -1,16 +1,16 @@
 {
   "modules": [
-    "mohd_pdf_enhance.dummy",
-    "mohd_pdf_enhance.random",
-    "mohd_pdf_enhance.fedex_waybills.highlight_sale_order"
+    "mohd_pdf_enhance.filters.dummy",
+    "mohd_pdf_enhance.filters.random_status",
+    "mohd_pdf_enhance.filters.fedex_waybills.highlight_sale_order"
   ],
   "post-execute": "evince {FILENAME}",
-  "mohd_pdf_enhance.dummy": {
+  "mohd_pdf_enhance.filters.dummy": {
     "result-status": true
   },
-  "mohd_pdf_enhance.random": {
+  "mohd_pdf_enhance.filters.random_status": {
   },
-  "mohd_pdf_enhance.fedex_waybills.highlight_sale_order": {
+  "mohd_pdf_enhance.filters.fedex_waybills.highlight_sale_order": {
     "regex-fedex": "Federal Express",
     "regex-sale_order": "\nPO: (.+) DEPT",
     "result-font-face": "Helvetica",

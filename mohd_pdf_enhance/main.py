@@ -13,8 +13,8 @@ import shutil
 import subprocess
 import tempfile
 
-from utility.command_line_arguments import CommandLineArguments
-from utility.setup_logging import setup_logging
+from mohd_pdf_enhance.utility.command_line_arguments import CommandLineArguments
+from mohd_pdf_enhance.utility.setup_logging import setup_logging
 
 
 def get_options():
