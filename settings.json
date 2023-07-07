@@ -1,8 +1,11 @@
 {
   "modules": [
-    "mohd_pdf_enhance.dummy"
+    "mohd_pdf_enhance.dummy",
+    "mohd_pdf_enhance.random"
   ],
   "mohd_pdf_enhance.dummy": {
     "result-status": true
+  },
+  "mohd_pdf_enhance.random": {
   }
 }
