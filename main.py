@@ -5,6 +5,7 @@
 #   Copyright: 2023 MOHD
 ##
 
+import importlib
 import json
 import logging
 import pathlib
@@ -59,8 +60,12 @@ def main():
                             else 'temp.pdf')
     shutil.copy(src=options.filename,
                 dst=destination_filename)
-    # Apply all the fixes
-    for module in ():
+    # Load all the fix modules
+    modules = [importlib.import_module(item)
+               for item
+               in settings.get('modules', [])]
+    # Apply all the desired fixes
+    for module in modules:
         logging.debug(f'Executing {module.__name__} processing')
         module.process(filename=destination_filename,
                        destination=destination_filename,
