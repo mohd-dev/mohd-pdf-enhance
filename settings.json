@@ -3,6 +3,7 @@
     "mohd_pdf_enhance.dummy",
     "mohd_pdf_enhance.random"
   ],
+  "post-execute": "evince {FILENAME}",
   "mohd_pdf_enhance.dummy": {
     "result-status": true
   },

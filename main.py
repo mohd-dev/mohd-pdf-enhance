@@ -10,6 +10,7 @@ import json
 import logging
 import pathlib
 import shutil
+import subprocess
 import tempfile
 
 from utility.command_line_arguments import CommandLineArguments
@@ -73,6 +74,14 @@ def main():
             logging.debug(f'Filter {module.__name__}.process was executed')
         else:
             logging.debug(f'Filter {module.__name__}.process was not executed')
+    # At the end of the processing execute the post execute command
+    post_command = settings.get('post-execute').format(
+        FILENAME=destination_filename)
+    if post_command:
+        logging.info(f'Executing post-execute command: "{post_command}"')
+        subprocess.run(args=post_command,
+                       shell=True)
+    logging.debug('Process ended')
 
 
 if __name__ == '__main__':
