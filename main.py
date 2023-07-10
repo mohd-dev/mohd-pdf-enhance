@@ -39,9 +39,9 @@ def get_options():
                                   type=str,
                                   required=True,
                                   help='Settings file')
-    arguments.parser.add_argument('--filename',
+    arguments.parser.add_argument('filename',
                                   type=str,
-                                  required=True,
+                                  nargs=1,
                                   help='PDF file to process')
     arguments.parser.add_argument('--debug',
                                   action='store_true',
@@ -57,8 +57,8 @@ def get_options():
         arguments.parser.error(f'Settings file "{arguments.options.settings}" '
                                f'does not exists')
     # Check the filename argument
-    if not pathlib.Path(arguments.options.filename).exists():
-        arguments.parser.error(f'PDF file "{arguments.options.filename}" '
+    if not pathlib.Path(arguments.options.filename[0]).exists():
+        arguments.parser.error(f'PDF file "{arguments.options.filename[0]}" '
                                f'does not exists')
     return arguments.options
 
@@ -74,7 +74,7 @@ def main():
     destination_filename = (tempfile.mktemp(suffix='.pdf')
                             if not options.debug
                             else 'temp.pdf')
-    shutil.copy(src=options.filename,
+    shutil.copy(src=options.filename[0],
                 dst=destination_filename)
     # Load all the fix modules
     modules = [importlib.import_module(item)
@@ -92,8 +92,8 @@ def main():
     # Save upon the original file if requested
     if options.original:
         shutil.copy(src=destination_filename,
-                    dst=options.filename)
-        destination_filename = options.filename
+                    dst=options.filename[0])
+        destination_filename = options.filename[0]
     # At the end of the processing execute the post execute command
     post_command = settings.get('post-execute').format(
         FILENAME=destination_filename)
