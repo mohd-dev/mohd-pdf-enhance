@@ -37,7 +37,7 @@ def get_options():
     arguments = CommandLineArguments()
     arguments.parser.add_argument('--settings',
                                   type=str,
-                                  required=True,
+                                  required=False,
                                   help='Settings file')
     arguments.parser.add_argument('filename',
                                   type=str,
@@ -53,6 +53,9 @@ def get_options():
                                   help='Overwrite the original file')
     arguments.parse_arguments()
     # Check the settings argument
+    arguments.options.settings = (
+            arguments.options.settings or
+            pathlib.Path(__file__).parent / 'settings.json')
     if not pathlib.Path(arguments.options.settings).exists():
         arguments.parser.error(f'Settings file "{arguments.options.settings}" '
                                f'does not exists')
