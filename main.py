@@ -43,10 +43,10 @@ def get_options():
                                   type=str,
                                   nargs=1,
                                   help='PDF file to process')
-    arguments.parser.add_argument('--original',
+    arguments.parser.add_argument('--temp',
                                   action='store_true',
                                   required=False,
-                                  help='Overwrite the original file')
+                                  help='Save the result in a temporary file')
     arguments.parse_arguments()
     # Check the settings argument
     arguments.options.settings = (
@@ -87,7 +87,7 @@ def main():
         else:
             logging.debug(f'Filter {module.__name__}.process was not executed')
     # Save upon the original file if requested
-    if options.original:
+    if not options.temp:
         shutil.copy(src=destination_filename,
                     dst=options.filename[0])
         destination_filename = options.filename[0]
