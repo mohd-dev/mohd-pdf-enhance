@@ -49,9 +49,11 @@ def get_options():
                                   help='Save the result in a temporary file')
     arguments.parse_arguments()
     # Check the settings argument
-    arguments.options.settings = (
-            arguments.options.settings or
-            pathlib.Path(__file__).parent / 'settings.json')
+    if not arguments.options.settings:
+        parent_dir = pathlib.Path(__file__).parent
+        if not (parent_dir / 'settings.json').is_file():
+            parent_dir = parent_dir.parent
+        arguments.options.settings = parent_dir / 'settings.json'
     if not pathlib.Path(arguments.options.settings).exists():
         arguments.parser.error(f'Settings file "{arguments.options.settings}" '
                                f'does not exists')
