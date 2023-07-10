@@ -11,10 +11,21 @@ import logging
 import pathlib
 import shutil
 import subprocess
+import sys
 import tempfile
 
-from mohd_pdf_enhance.utility.command_line_arguments import CommandLineArguments
-from mohd_pdf_enhance.utility.setup_logging import setup_logging
+
+try:
+    from mohd_pdf_enhance.utility.command_line_arguments import (
+        CommandLineArguments)
+    from mohd_pdf_enhance.utility.setup_logging import setup_logging
+except ModuleNotFoundError:
+    # Fix module search path adding the current directory
+    # Mostly needed for embedded Python
+    sys.path.append('.')
+    from mohd_pdf_enhance.utility.command_line_arguments import (
+        CommandLineArguments)
+    from mohd_pdf_enhance.utility.setup_logging import setup_logging
 
 
 def get_options():
@@ -36,6 +47,10 @@ def get_options():
                                   action='store_true',
                                   required=False,
                                   help='Execute debug')
+    arguments.parser.add_argument('--original',
+                                  action='store_true',
+                                  required=False,
+                                  help='Overwrite the original file')
     arguments.parse_arguments()
     # Check the settings argument
     if not pathlib.Path(arguments.options.settings).exists():
@@ -74,6 +89,11 @@ def main():
             logging.debug(f'Filter {module.__name__}.process was executed')
         else:
             logging.debug(f'Filter {module.__name__}.process was not executed')
+    # Save upon the original file if requested
+    if options.original:
+        shutil.copy(src=destination_filename,
+                    dst=options.filename)
+        destination_filename = options.filename
     # At the end of the processing execute the post execute command
     post_command = settings.get('post-execute').format(
         FILENAME=destination_filename)
