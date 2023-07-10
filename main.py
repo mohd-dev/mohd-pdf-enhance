@@ -43,10 +43,6 @@ def get_options():
                                   type=str,
                                   nargs=1,
                                   help='PDF file to process')
-    arguments.parser.add_argument('--debug',
-                                  action='store_true',
-                                  required=False,
-                                  help='Execute debug')
     arguments.parser.add_argument('--original',
                                   action='store_true',
                                   required=False,
@@ -74,9 +70,7 @@ def main():
     with open(options.settings, 'r') as file:
         settings=json.load(fp=file)
     # Create destination filename
-    destination_filename = (tempfile.mktemp(suffix='.pdf')
-                            if not options.debug
-                            else 'temp.pdf')
+    destination_filename = tempfile.mktemp(suffix='.pdf')
     shutil.copy(src=options.filename[0],
                 dst=destination_filename)
     # Load all the fix modules
