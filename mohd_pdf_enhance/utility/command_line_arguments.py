@@ -8,6 +8,8 @@
 import argparse
 import logging
 
+from mohd_pdf_enhance.constants import APP_NAME, APP_VERSION
+
 
 class CommandLineArguments(object):
     """
@@ -17,13 +19,17 @@ class CommandLineArguments(object):
     GROUP_OPTIONS = 'Options'
 
     def __init__(self):
-        self.parser = argparse.ArgumentParser()
+        self.parser = argparse.ArgumentParser(prog=APP_NAME)
         self.parser.add_argument('--logging',
                                  type=str,
                                  required=False,
                                  choices=logging._nameToLevel.keys(),
                                  default=logging._levelToName[logging.INFO],
                                  help='Logging level')
+        self.parser.add_argument('-V',
+                                 '--version',
+                                 action='version',
+                                 version=f'{APP_NAME} v{APP_VERSION}')
         self.options = None
         self.groups = {}
 
