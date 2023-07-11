@@ -6,4 +6,4 @@
 ##
 
 APP_NAME = 'mohd_pdf_enhance'
-APP_VERSION = '0.2.0'
+APP_VERSION = '0.3.0'
