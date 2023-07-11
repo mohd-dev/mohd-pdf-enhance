@@ -80,18 +80,27 @@ def main():
                for item
                in settings.get('modules', [])]
     # Apply all the desired fixes
+    document_processed = False
     for module in modules:
         logging.info(f'Executing {module.__name__}.process')
         if module.process(filename=destination_filename,
                           destination=destination_filename,
                           options=settings.get(module.__name__, {})):
             logging.debug(f'Filter {module.__name__}.process was executed')
+            document_processed = True
         else:
             logging.debug(f'Filter {module.__name__}.process was not executed')
     # Save upon the original file if requested
-    if not options.temp:
-        shutil.copy(src=destination_filename,
-                    dst=options.filename[0])
+    if document_processed:
+        if not options.temp:
+            # The document was processed, try to rename the temporary file
+            shutil.copy(src=destination_filename,
+                        dst=options.filename[0])
+            destination_filename = options.filename[0]
+    else:
+        # The document was not processed by any filter,
+        # delete the temporary file and use the original file and
+        pathlib.Path(destination_filename).unlink()
         destination_filename = options.filename[0]
     # At the end of the processing execute the post execute command
     post_command = settings.get('post-execute').format(
