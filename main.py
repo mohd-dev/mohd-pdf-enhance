@@ -116,6 +116,8 @@ def main():
         logging.info(f'Executing post-execute command: "{post_command}"')
         subprocess.run(args=post_command,
                        shell=True)
+    else:
+        logging.warning('No post-execute command was set')
     logging.debug('Process ended')
 
 
