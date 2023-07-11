@@ -17,7 +17,7 @@
   "mohd_pdf_enhance.filters.random_status": {
   },
   "mohd_pdf_enhance.filters.fedex_waybills.highlight_sale_order": {
-    "regex-fedex": "Federal Express",
+    "regex-fedex": "ACTWGT",
     "regex-sale_order": "\nPO: (.+) DEPT",
     "result-font-face": "Helvetica",
     "result-font-size": 20,
