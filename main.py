@@ -93,10 +93,17 @@ def main():
     # Save upon the original file if requested
     if document_processed:
         if not options.temp:
-            # The document was processed, try to rename the temporary file
-            shutil.copy(src=destination_filename,
-                        dst=options.filename[0])
-            destination_filename = options.filename[0]
+            try:
+                # The document was processed, try to rename the temporary file
+                shutil.copy(src=destination_filename,
+                            dst=options.filename[0])
+                destination_filename = options.filename[0]
+            except PermissionError:
+                # There was an error copying the temporary file over the
+                # original file, so let's keep the temporary file
+                logging.warning(f'PermissionError copying '
+                                f'"{destination_filename}" on '
+                                f'"{options.filename[0]}"')
     else:
         # The document was not processed by any filter,
         # delete the temporary file and use the original file and
