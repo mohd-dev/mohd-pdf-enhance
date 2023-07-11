@@ -4,7 +4,7 @@
     "mohd_pdf_enhance.filters.random_status",
     "mohd_pdf_enhance.filters.fedex_waybills.highlight_sale_order"
   ],
-  "post-execute": "evince {FILENAME}",
+  "post-execute": "evince \"{FILENAME}\"",
   "mohd_pdf_enhance.filters.dummy": {
     "result-status": true
   },
