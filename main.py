@@ -110,7 +110,8 @@ def main():
         pathlib.Path(destination_filename).unlink()
         destination_filename = options.filename[0]
     # At the end of the processing execute the post execute command
-    post_command = settings.get('post-execute').format(
+    launchers = settings['launchers']
+    post_command = launchers[settings.get('post-execute')].format(
         FILENAME=destination_filename)
     if post_command:
         logging.info(f'Executing post-execute command: "{post_command}"')

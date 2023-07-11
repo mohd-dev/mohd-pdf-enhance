@@ -4,7 +4,13 @@
     "mohd_pdf_enhance.filters.random_status",
     "mohd_pdf_enhance.filters.fedex_waybills.highlight_sale_order"
   ],
-  "post-execute": "evince \"{FILENAME}\"",
+  "launchers": {
+    "acrobat-reader": "\"C:\\Program Files (x86)\\Adobe\\Acrobat Reader DC\\Reader\\AcroRd32.exe\" \"{FILENAME}\"",
+    "edge": "\"C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe\" --single-argument {FILENAME}",
+    "evince": "evince \"{FILENAME}\"",
+    "foxit-reader": "\"C:\\Program Files (X86)\\Foxit Software\\Foxit Reader\\FoxitReader.exe\" \"{FILENAME}\""
+  },
+  "post-execute": "evince",
   "mohd_pdf_enhance.filters.dummy": {
     "result-status": true
   },
